@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<Configuration status="WARN" monitorInterval="30">
+	<Properties>
+		<Property name="LOG_PATTERN">
+			%d{yyyy-MM-dd HH:mm:ss.SSS} %5p : %m%n%ex
+		</Property>
+	</Properties>
+	<Appenders>
+		<Console name="ConsoleAppender" target="SYSTEM_OUT" follow="true">
+			<PatternLayout pattern="${LOG_PATTERN}" />
+		</Console>
+		<RollingRandomAccessFile name="bankapplication" fileName="/home/uday768/Documents/Application_Logs/Bank_Application_Logs/bankapplication.log" filePattern="/home/uday768/Documents/Application_Logs/Bank_Application_Logs/bankapplication_%d{yyyyMMdd}_%i.log.gz">
+			<PatternLayout pattern="${LOG_PATTERN}" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="4"/>
+		</RollingRandomAccessFile>
+	</Appenders>
+	<Loggers>
+		<Logger name="com.suncorp.banking.application" level="debug" additivity="false">
+			<AppenderRef ref="bankapplication" />
+			<AppenderRef ref="ConsoleAppender" />
+		</Logger>
+
+		<Root level="info">
+			<AppenderRef ref="ConsoleAppender" />
+			<AppenderRef ref="bankapplication" />
+		</Root>
+	</Loggers>
+</Configuration>
